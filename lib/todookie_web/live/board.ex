@@ -234,9 +234,7 @@ defmodule TodookieWeb.BoardLive do
 
               List.update_at(columns, column_index, fn column ->
                 Map.update!(column, :cards, fn cards ->
-                  cards
-                  |> List.delete_at(card.position)
-                  |> List.insert_at(card.position, card)
+                  List.replace_at(cards, card.position, card)
                 end)
               end)
             end)
