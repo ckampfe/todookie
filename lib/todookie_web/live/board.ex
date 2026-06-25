@@ -110,6 +110,15 @@ defmodule TodookieWeb.BoardLive do
     ~H"""
     <.modal id="card-detail-modal" show={@card}>
       <:title>{@card.title}</:title>
+      <div class="text-xs">
+        <div class="flex justify-between w-full">
+          <span>Created:</span> <span>{@card.inserted_at}</span>
+        </div>
+        <div class="flex justify-between w-full">
+          <span>Last updated:</span><span>{@card.updated_at}</span>
+        </div>
+      </div>
+      <div class="divider"></div>
       <div>
         {raw(
           MDEx.to_html!(@card.body || "",
