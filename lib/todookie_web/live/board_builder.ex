@@ -1,5 +1,4 @@
 defmodule TodookieWeb.BoardBuilderLive do
-  require Logger
   alias Todookie.Todos
   alias Todookie.Board
   use TodookieWeb, :live_view
