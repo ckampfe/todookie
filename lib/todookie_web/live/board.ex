@@ -111,7 +111,15 @@ defmodule TodookieWeb.BoardLive do
     <.modal id="card-detail-modal" show={@card}>
       <:title>{@card.title}</:title>
       <div>
-        {@card.body}
+        {raw(
+          MDEx.to_html!(@card.body || "",
+            extension: [
+              strikethrough: true,
+              tasklist: true,
+              autolink: true
+            ]
+          )
+        )}
       </div>
       <:actions>
         <.button
