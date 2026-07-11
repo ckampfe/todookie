@@ -116,45 +116,29 @@ defmodule Todookie.Todos do
 
   def create_card(%{"column_id" => column_id} = params, user_scope) do
     Repo.transact(fn ->
-      max_position =
-        Card
-        |> where([c], c.column_id == ^column_id)
-        |> group_by([c], c.column_id)
-        |> select([c], coalesce(max(c.position), 0))
-        |> Repo.one()
-
-      new_position =
-        if max_position do
-          max_position + 1
-        else
-          0
-        end
+      Card
+      |> where([c], c.column_id == ^column_id)
+      |> where([c], c.user_id == ^user_scope.user.id)
+      |> update([c], set: [position: c.position + 1])
+      |> Repo.update_all([])
 
       %Card{}
-      |> change_card(Map.put(params, "position", new_position), user_scope)
+      |> change_card(Map.put(params, "position", 0), user_scope)
       |> Repo.insert()
     end)
   end
 
   def create_card!(%{"column_id" => column_id} = params, user_scope) do
     Repo.transact(fn ->
-      max_position =
-        Card
-        |> where([c], c.column_id == ^column_id)
-        |> group_by([c], c.column_id)
-        |> select([c], max(c.position))
-        |> Repo.one()
-
-      new_position =
-        if max_position do
-          max_position + 1
-        else
-          0
-        end
+      Card
+      |> where([c], c.column_id == ^column_id)
+      |> where([c], c.user_id == ^user_scope.user.id)
+      |> update([c], set: [position: c.position + 1])
+      |> Repo.update_all([])
 
       {:ok,
        %Card{}
-       |> change_card(Map.put(params, "position", new_position), user_scope)
+       |> change_card(Map.put(params, "position", 0), user_scope)
        |> Repo.insert!()}
     end)
   end
