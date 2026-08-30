@@ -63,11 +63,32 @@ Hooks.Sortable = {
     new Sortable(this.el, {
       group: this.group() ? this.group() : undefined,
       animation: 150,
-      delay: 50,
+      easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+      // only delay on touch, so a mouse drag starts immediately.
+      // with a delay on the mouse, sortable cancels the drag if the pointer
+      // moves more than `touchStartThreshold` px before the delay elapses,
+      // which made quick drags silently do nothing.
+      delay: 80,
+      delayOnTouchOnly: true,
+      touchStartThreshold: 5,
       dragClass: "drag-item",
       ghostClass: "drag-ghost",
       forceFallback: true,
-      fallbackTolerance: 5,
+      fallbackTolerance: 3,
+      // the list is a plain block column; tell sortable rather than letting it guess
+      direction: "vertical",
+      // swap once the pointer is a hair inside the neighbouring card, rather
+      // than waiting for it to cross that card's midpoint.
+      //
+      // the swap zone is centered on the target and takes up `swapThreshold`
+      // of it, so the pointer has to sink (1 - swapThreshold) / 2 of a card in
+      // before the swap fires: 0.85 works out to ~7% of a card. counter to how
+      // it reads, *higher* is looser -- 1 swaps the instant the pointer crosses
+      // into the card. the small remainder is deliberate: it keeps a jittery
+      // pointer sitting right on the seam between two cards from flip-flopping.
+      swapThreshold: 0.85,
+      // how close the pointer has to get to an empty column to drop into it
+      emptyInsertThreshold: 20,
       onEnd: e => {
         // calculate this ourselves,
         // because for some reason sortablejs calculates this incorrectly
