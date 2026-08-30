@@ -165,9 +165,9 @@ defmodule TodookieWeb.BoardLive do
     <.modal id="card-edit-modal" show={@form}>
       <:title>Edit</:title>
       <.form
-        id="new-card-form"
+        id="edit-card-form"
         for={@form}
-        phx-change="validate-card"
+        phx-change="validate-edit-card"
         phx-submit="save-card"
       >
         <.input type="text" field={@form[:title]} placeholder="title" />
@@ -305,6 +305,19 @@ defmodule TodookieWeb.BoardLive do
     socket =
       socket
       |> assign(:new_card_form, form)
+
+    {:noreply, socket}
+  end
+
+  def handle_event("validate-edit-card", %{"card" => card_params}, socket) do
+    form =
+      socket.assigns.card
+      |> Todos.change_card(card_params, socket.assigns.current_scope)
+      |> to_form(action: :validate)
+
+    socket =
+      socket
+      |> assign(:edit_card_form, form)
 
     {:noreply, socket}
   end
