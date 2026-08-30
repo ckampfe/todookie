@@ -7,7 +7,7 @@ defmodule TodookieWeb.BoardLive do
 
   def render(assigns) do
     ~H"""
-    <div class="flex flex-col h-dvh">
+    <div class="flex flex-col flex-1 min-h-0">
       <ul class="p-1 w-full flex items-center gap-2 mb-4">
         <li>
           <.button
@@ -35,7 +35,7 @@ defmodule TodookieWeb.BoardLive do
       </ul>
       <div
         id="lists"
-        class="grid sm:grid-cols-1 md:grid-cols-3 gap-2 p-2"
+        class="grid sm:grid-cols-1 md:grid-cols-3 gap-2 p-2 flex-1 min-h-0 overflow-y-auto md:overflow-hidden md:grid-rows-1"
       >
         <.live_component
           :for={column <- @board.columns}

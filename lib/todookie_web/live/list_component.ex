@@ -7,7 +7,7 @@ defmodule TodookieWeb.ListComponent do
       id={"column-id-#{@column.id}"}
       data-column_id={@column.id}
       phx-hook="DoubleClick"
-      class="bg-gray-100 py-4 rounded-lg overflow-y-scroll flex flex-col"
+      class="bg-gray-100 py-4 rounded-lg overflow-y-auto flex flex-col min-h-0"
     >
       <div class="space-y-5 mx-auto w-full max-w-7xl px-4 space-y-4 flex flex-col flex-1">
         <header id={"#{@column.name}-title"}>
