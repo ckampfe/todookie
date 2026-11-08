@@ -15,15 +15,17 @@ config :todookie, TodookieWeb.Endpoint,
     rewrite_on: [:x_forwarded_proto],
     exclude: [
       # paths: ["/health"],
-      hosts: ["localhost", "127.0.0.1"]
+      hosts: ["localhost", "127.0.0.1", "todo.localhost"]
     ]
   ]
+
+config :todookie, dev_routes: true
 
 # Configure Swoosh API Client
 config :swoosh, api_client: Swoosh.ApiClient.Req
 
 # Disable Swoosh Local Memory Storage
-config :swoosh, local: false
+config :swoosh, local: true
 
 # Do not print debug messages in production
 config :logger, level: :info

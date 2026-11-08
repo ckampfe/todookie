@@ -10,3 +10,14 @@
 ## Enable deployment without epmd
 ## (requires changing both vm.args and remote.vm.args)
 ##-start_epmd false -erl_epmd_port 6789
+
+## Limit BEAM to 1 scheduler thread
++S 1
+
+## Disable scheduler busy waiting (saves significant CPU when idle)
++sbwt none
++sbwtdcpu none
++sbwtdio none
+
+## Prevent dirty schedulers from busy waiting
++scl false

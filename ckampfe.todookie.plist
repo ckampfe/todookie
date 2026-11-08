@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EnvironmentVariables</key>
+    	<dict>
+           <key>PHX_SERVER</key>
+           <string>true</string>
+           <key>PHX_HOST</key>
+           <string>todo.localhost</string>
+           <key>PORT</key>
+           <string>9998</string>
+           <key>DATABASE_PATH</key>
+           <string>/Users/clark/Library/Application Support/todookie/todookie.db</string>
+           <key>SECRET_KEY_BASE</key>
+           <string>6jba5oTHBF/grOtGzyk3Tqvj3RS+NX04c6EEBBtIhFiEUfimZ0b0ksUihMooT27v</string>
+    	</dict>
+
+	<key>Label</key>
+	<string>ckampfe.todookie</string>
+	<key>ProgramArguments</key>
+	<array>
+        <string>_build/prod/rel/todookie/bin/todookie</string>
+        <string>start</string>
+	</array>
+
+	<key>StandardErrorPath</key>
+	<string>error.log</string>
+	<key>StandardOutPath</key>
+	<string>stdout.log</string>
+
+	<key>WorkingDirectory</key>
+	<string>/Users/clark/code/todookie</string>
+
+	<key>KeepAlive</key>
+    	<true/>
+</dict>
+</plist>
